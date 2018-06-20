@@ -1,21 +1,53 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Navbar from './components/Navbar'
+import Card from './components/Card'
+import Leaderboard from './components/Leaderboard'
+import NewQuestion from './components/NewQuestion'
+import Login from './components/Login'
+import { connect } from 'react-redux'
+import { handleInitialData } from './actions/shared'
+import User from './components/User'
+
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData())
+  }
+
   render() {
+
+    const { usersIds } = this.props
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Navbar />
+        <ul>
+          { usersIds.map((user) => (<li key={user}><User id={user} /></li>)) }
+        </ul>
+        { /* <Login /> */ }
+        { /* <NewQuestion /> */ }
+         <Leaderboard />
+        <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 className="display-4">Would you rather</h1>
+          <p className="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. Its built with default Bootstrap components and utilities with little customization.</p>
+        </div>
+
+          <div className="container">
+            <div className="card-deck mb-3 text-center">
+              <Card />
+              <Card />
+            </div>
+          </div>
+
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({users, questions}) {
+  return {
+    usersIds: Object.keys(users)
+  }
+}
+
+export default connect(mapStateToProps)(App);
