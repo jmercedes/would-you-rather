@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 
 class User extends Component {
   render(){
-    console.log(this.props.user)
+
+    const { name, answers, questions } = this.props.user
 
     return(
-      <div>...3</div>
+      <div>{name}, {answers.length || 0}, {questions.length} </div>
     )
   }
 }

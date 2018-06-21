@@ -16,15 +16,18 @@ class App extends Component {
 
   render() {
 
-    const { usersIds } = this.props
+    const { usersIds, questionsIds } = this.props
 
     return (
       <div className="App">
         <Navbar />
+        {/*
         <ul>
           { usersIds.map((user) => (<li key={user}><User id={user} /></li>)) }
         </ul>
-        { /* <Login /> */ }
+        */}
+
+        <Login users={ usersIds } />
         { /* <NewQuestion /> */ }
          <Leaderboard />
         <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -46,7 +49,8 @@ class App extends Component {
 
 function mapStateToProps({users, questions}) {
   return {
-    usersIds: Object.keys(users)
+    usersIds: Object.keys(users),
+    questionsIds: Object.keys(questions)
   }
 }
 
